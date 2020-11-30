@@ -4,7 +4,8 @@
   "description": "RESTFUL API for vivid care",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon .",
+    "start:prod": "NODE_ENV=production node"
   },
   "repository": {
     "type": "git",
