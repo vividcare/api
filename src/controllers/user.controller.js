@@ -49,7 +49,8 @@ const methods = {
         if (!user) return res.status(400).json({ error: 'Invalid email or password' });
         return req.logIn(user, (error) => {
           if (error) return next(error);
-          const token = jwt.sign({ user }, config.secret, { expiresIn: config.token_exp_days });
+          const token = jwt.sign({ user }, process.env.secret,
+            { expiresIn: config.token_exp_days });
           return res.success({ token, user });
         });
       })(req, res, next);
