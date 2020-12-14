@@ -1,7 +1,17 @@
-const methods = {
-  sayHello() {
-    return 'Welcome to Vivid Care';
-  },
-};
+// const passport = require('passport');
+// const User = require('../models/User');
+// const { ErrorBadRequest } = require('../configs/errorMethods');
 
-module.exports = { ...methods };
+// const methods = {
+
+//   createUser(data, password) {
+//     User.register(data, password, (err) => {
+//       if (err) {
+//         return (ErrorBadRequest(err.message));
+//       }
+//       return passport.authenticate('local');
+//     });
+//   },
+// };
+
+// module.exports = { ...methods };
