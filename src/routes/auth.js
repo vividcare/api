@@ -1,25 +1,29 @@
+/* eslint-disable consistent-return */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-mixed-operators */
-const jwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
 const { secret } = require('../configs/app');
 
-const getTokenFromHeader = (req) => {
-  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token'
-    || req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-    return req.headers.authorization.split(' ')[1];
+function auth(req, res, next) {
+  let token = req.headers.authorization;
+  if (!token) {
+    return res.status(403).json({
+      auth: false,
+      error: 'No token provided',
+    });
   }
-  return null;
-};
-
-const auth = {
-  required: jwt({
-    secret,
-    getToken: getTokenFromHeader,
-  }),
-  optional: jwt({
-    secret,
-    credentialsRequired: false,
-    getToken: getTokenFromHeader,
-  }),
-};
+  token = token.split(' ')[1];
+  // verify the token and expire
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({
+        auth: false,
+        message: err.message,
+      });
+    }
+    req.user = decoded.user;
+    next();
+  });
+}
 
 module.exports = auth;

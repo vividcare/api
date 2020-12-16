@@ -1,10 +1,12 @@
 const { body, validationResult } = require('express-validator');
 
-const user = () => [
+const facility = () => [
+  body('userID').isString().not().isEmpty()
+    .withMessage('userID must cannot be empty'),
   body('name').isString().not().isEmpty()
-    .withMessage('name cannot be empty'),
-  body('password').isLength({ min: 4 }).withMessage('password must be at least 4 chars long'),
-  body('email').isEmail().withMessage('email is not valid'),
+    .withMessage('name of facility cannot be empty'),
+  body('location').isString().not().isEmpty()
+    .withMessage('location of facility cannot be empty'),
 ];
 
 const validator = ((req, res, next) => {
@@ -16,6 +18,6 @@ const validator = ((req, res, next) => {
 });
 
 module.exports = {
-  user,
+  facility,
   validator,
 };
