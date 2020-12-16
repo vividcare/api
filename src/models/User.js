@@ -4,12 +4,12 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const schema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, 'Name is required'],
   },
   email: {
     type: String,
     unique: true,
-    required: true,
+    required: [true, 'Email is required'],
   },
   password: {
     type: String,
