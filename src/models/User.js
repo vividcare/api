@@ -16,7 +16,7 @@ const schema = new mongoose.Schema({
     type: String,
     select: false,
   },
-});
+}, { timestamps: true });
 
 schema.plugin(passportLocalMongoose, { usernameField: 'email' });
 module.exports = mongoose.model('User', schema);
